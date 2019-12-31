@@ -4,7 +4,7 @@ import {
   View,
 } from 'react-native';
 import { connect } from 'react-redux';
-import { newGame } from '../redux/actions';
+import { newGame, updateCell } from '../redux/actions';
 import Board from '../components/Board';
 import Player  from '../components/Player';
 import { PRIMARY_COLOR } from '../styles/colors';
@@ -22,18 +22,12 @@ class GameScreen extends Component {
   }
 
   handleClick(rowIndex, colIndex) {
-    console.log('------------------------------------');
-    console.log("Cord :", {rowIndex, colIndex});
-    console.log('------------------------------------');
-    
+    this.props.updateCell(rowIndex, colIndex);
   }
 
   render() {
     const { game } = this.props;
-    const { board, gameOver } = game;
-    console.log('------------------------------------');
-    console.log('NEW GAME : ', game);
-    console.log('------------------------------------');
+    const { board } = game;
     
     return (
       <View style={styles.container}>
@@ -93,5 +87,5 @@ const mapStateToProps = (state) => {
 
 export default connect(
   mapStateToProps, 
-  { newGame }
+  { newGame, updateCell }
 )(GameScreen);

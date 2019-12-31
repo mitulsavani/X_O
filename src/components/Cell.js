@@ -17,9 +17,6 @@ class Cell extends Component {
     )
   }
   render() {
-    console.log('------------------------------------');
-    console.log('From Cell', this.props);
-    console.log('------------------------------------');
 
     return (
       <View style={styles.container}>
