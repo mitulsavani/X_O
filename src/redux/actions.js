@@ -1,14 +1,10 @@
-import * as types from './types';
+import { InitialState } from "./InitialState";
 
-const newGame = () => ({
-  type: types.NEW_GAME
-});
+export const NEW_GAME = 'NEW_GAME';
 
-const gameOver = () => ({
-  type: types.GAME_OVER
-});
-
-export {
-  newGame,
-  gameOver,
-}
+export const newGame = () => (dispatch) => {
+  dispatch({
+    type: NEW_GAME,
+    game: InitialState()
+  });
+};

@@ -1,40 +1,39 @@
 import React, { Component } from 'react';
 import { View, StyleSheet} from 'react-native';
-import { PRIMARY_COLOR } from '../styles/colors';
-import Cell from './Cell';
+import Button from './Button';
 
-class Board extends Component {
+class Cell extends Component {
 
-  renderRows() {
-    return [0, 1, 2].map(val => 
-      <Cell
+  renderColumns() {
+    return [0, 1, 2].map(val =>
+      <Button
         onClick={this.props.onClick}
-        rowIndex={val}
-        boardRow={this.props.board[val]}
+        rowIndex={this.props.rowIndex}
+        colIndex={val}
+        buttonValue={this.props.boardRow[val]}
         gameOver={this.props.gameOver}
         key={val}
       />
-    );
+    )
   }
   render() {
     console.log('------------------------------------');
-    console.log('FROM BOARD : ', this.props);
+    console.log('From Cell', this.props);
     console.log('------------------------------------');
+
     return (
-      <View style = {styles.container}>
-        { this.renderRows() }
+      <View style={styles.container}>
+        { this.renderColumns() }
       </View>
     );
-  }
+  }  
 };
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-  },
-  row: {
     flexDirection: 'row',
-  }
+  },
 });
 
-export default Board;
+export default Cell;

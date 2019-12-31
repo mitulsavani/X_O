@@ -2,13 +2,14 @@ import React, { Component } from 'react';
 import { View, StyleSheet} from 'react-native';
 
 
-export const Player = () => {
-
-  return (
-    <View style={styles.container}>
-      <View style={styles.playerContainer} />
-    </View>
-  );
+class Player extends Component {
+  render() {
+    return (
+      <View style={styles.container}>
+        <View style={styles.playerContainer} />
+      </View>
+    );
+  }
 };
 
 const styles = StyleSheet.create({
@@ -23,3 +24,5 @@ const styles = StyleSheet.create({
     backgroundColor: '#27175D', 
   }
 });
+
+export default Player;
