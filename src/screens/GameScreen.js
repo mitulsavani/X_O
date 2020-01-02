@@ -2,10 +2,9 @@ import React, { Component } from 'react';
 import {
   StyleSheet,
   View,
-  Text
 } from 'react-native';
 import { connect } from 'react-redux';
-import { newGame, updateCell } from '../redux/actions';
+import { newGame, updateCell, togglePlayer, checkWinner } from '../redux/actions';
 import Board from '../components/Board';
 import Player  from '../components/Player';
 import { PRIMARY_COLOR } from '../styles/colors';
@@ -23,7 +22,11 @@ class GameScreen extends Component {
   }
 
   handleClick(rowIndex, colIndex) {
+    
     this.props.updateCell(rowIndex, colIndex);
+    this.props.checkWinner();
+
+    this.props.togglePlayer();
   }
 
   renderStatus = () => {
@@ -100,6 +103,9 @@ const styles = StyleSheet.create({
 
 
 const mapStateToProps = (state) => {
+  console.log('------------------------------------');
+  console.log("GameOver : ", state.game.gameOver);
+  console.log('------------------------------------');
   return {
     game: state.game,
   };
@@ -107,5 +113,5 @@ const mapStateToProps = (state) => {
 
 export default connect(
   mapStateToProps, 
-  { newGame, updateCell }
+  { newGame, updateCell, togglePlayer, checkWinner }
 )(GameScreen);

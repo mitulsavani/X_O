@@ -15,7 +15,7 @@ class Button extends Component {
   }
 
   getIcon = (player) => {
-    const xIcon = <Icon name="cross" size={90} color={X_COLOR} />;
+    const xIcon = <Icon name="cross" size={95} color={X_COLOR} />;
     const oIcon = <Icon name="circle" size={60} color={O_COLOR} />;
 
     switch(player) {

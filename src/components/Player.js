@@ -9,9 +9,6 @@ class Player extends Component {
   renderPlayerCard() {
     const { title, iconName, nextPlayer, id } = this.props;
 
-    console.log('------------------------------------');
-    console.log(' ICON: ', {title, iconName, nextPlayer, id});
-    console.log('------------------------------------');
     const getWidth = (nextPlayer) => {
       if(nextPlayer === id)
         return 1;

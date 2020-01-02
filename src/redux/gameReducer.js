@@ -1,9 +1,33 @@
-import { NEW_GAME, UPDATE_CELL } from './actions';
+import { NEW_GAME, UPDATE_CELL, TOGGLE_PLAYER, CHECK_WINNER } from './actions';
 import { InitialState } from './InitialState';
 
-export const defaultState = InitialState
+export const defaultState = InitialState();
 
-const gameReducer = (state = InitialState(), action) => {
+const gameReducer = (state = defaultState, action) => {
+
+  const winningPatterns = [
+    // Horizontals
+    [{ r: 0, c: 0 }, { r: 0, c: 1 }, { r: 0, c: 2 }],
+    [{ r: 1, c: 0 }, { r: 1, c: 1 }, { r: 1, c: 2 }],
+    [{ r: 2, c: 0 }, { r: 2, c: 1 }, { r: 2, c: 2 }],
+  
+    // Verticals
+    [{ r: 0, c: 0 }, { r: 1, c: 0 }, { r: 2, c: 0 }],
+    [{ r: 0, c: 1 }, { r: 1, c: 1 }, { r: 2, c: 1 }],
+    [{ r: 0, c: 2 }, { r: 1, c: 2 }, { r: 2, c: 2 }],
+
+    // Diagonals
+    [{ r: 0, c: 0 }, { r: 1, c: 1 }, { r: 2, c: 2 }],
+    [{ r: 0, c: 2 }, { r: 1, c: 1 }, { r: 2, c: 0 }],
+  ];
+
+  const checkWinner = (board, nextPlayer) => {
+    return winningPatterns.some(pattern => pattern.every(cell => {
+      const { r, c } = cell;
+
+      return board[r][c] === nextPlayer;
+    }));
+  }
 
   const updateBoard = (currentBoard) => {
   
@@ -14,21 +38,39 @@ const gameReducer = (state = InitialState(), action) => {
     ]
 
     newBoard[action.payload.row][action.payload.col] = state.nextPlayer;
-    
+
     return newBoard;
-    } 
+  } 
 
   switch(action.type) {
     case NEW_GAME:
       return action.game;
     case UPDATE_CELL:
-      const togglePlayer = state.nextPlayer === 'X' ? 'O' : 'X';
       const updatedBoard = updateBoard(state.board);
 
       return {
         ...state,
-        nextPlayer: togglePlayer,
         board: updatedBoard,
+      }
+    case TOGGLE_PLAYER:
+      const togglePlayer = state.nextPlayer === 'X' ? 'O' : 'X';
+
+      return {
+        ...state,
+        nextPlayer: togglePlayer,
+      }
+    case CHECK_WINNER:
+      const result = checkWinner(state.board, state.nextPlayer);
+
+      let gameOver;
+      if(result === true)
+        gameOver = true;
+      else
+        gameOver = false;
+
+      return {
+        ...state,
+        gameOver: gameOver,
       }
     default:
       return state;
