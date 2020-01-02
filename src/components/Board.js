@@ -17,9 +17,6 @@ class Board extends Component {
     );
   }
   render() {
-    console.log('------------------------------------');
-    console.log('FROM BOARD : ', this.props);
-    console.log('------------------------------------');
     return (
       <View style = {styles.container}>
         { this.renderRows() }

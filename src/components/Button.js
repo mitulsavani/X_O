@@ -29,14 +29,15 @@ class Button extends Component {
   }
 
   render() {
-
-    const currentPlayer = this.getIcon(this.props.buttonValue);
+    const {buttonValue} = this.props
+    const currentPlayer = this.getIcon(buttonValue);
 
     return (
       <TouchableOpacity
         activeOpacity={0.7}
         style={styles.buttonStyling}
         onPress={this.handleClick}
+        disabled={buttonValue !== null}
       >
       {
         currentPlayer &&

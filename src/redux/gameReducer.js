@@ -25,10 +25,6 @@ const gameReducer = (state = InitialState(), action) => {
       const togglePlayer = state.nextPlayer === 'X' ? 'O' : 'X';
       const updatedBoard = updateBoard(state.board);
 
-      console.log('------------------------------------');
-      console.log('Payload- > ', action.payload);
-      console.log('------------------------------------');
-
       return {
         ...state,
         nextPlayer: togglePlayer,

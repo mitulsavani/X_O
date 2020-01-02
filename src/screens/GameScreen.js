@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import {
   StyleSheet,
   View,
+  Text
 } from 'react-native';
 import { connect } from 'react-redux';
 import { newGame, updateCell } from '../redux/actions';
@@ -25,15 +26,35 @@ class GameScreen extends Component {
     this.props.updateCell(rowIndex, colIndex);
   }
 
+  renderStatus = () => {
+    const { game } = this.props
+    const { nextPlayer } = game;
+
+    return(
+      <View style={{flexDirection: 'row', alignItems: 'center' }}>
+        <Player
+          id="X"
+          title="Player 1"
+          iconName="cross"
+          nextPlayer={nextPlayer}
+        />
+        <Player
+          id="O"
+          title="Player 2"
+          iconName="circle"
+          nextPlayer={nextPlayer}
+        />
+      </View>
+    );
+  }
   render() {
     const { game } = this.props;
     const { board } = game;
     
     return (
       <View style={styles.container}>
-      <View style={styles.playersContainer}>
-        <Player/>
-        <Player/>
+      <View style={styles.playerContainer}>
+          {this.renderStatus()}
       </View>
       <View style={styles.boardContainer}>
         <View style={styles.boardStyling}>
@@ -56,14 +77,16 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     backgroundColor: '#3A238C'
   },
-  playersContainer: {
-    flex: 0.5,
-    flexDirection: 'row',
+  playerContainer: {
+    flex: 0.4,
+    padding: 10,
     justifyContent: 'center',
-    alignItems: 'center'
+    alignItems: 'center',
+    marginTop: 40
   },
   boardContainer: {
-    flex: 0.5
+    flex: 0.6,
+    padding: 10,
   },
   boardStyling: {
     alignContent: 'center',
@@ -77,9 +100,6 @@ const styles = StyleSheet.create({
 
 
 const mapStateToProps = (state) => {
-  console.log('------------------------------------');
-  console.log('State ', state);
-  console.log('------------------------------------');
   return {
     game: state.game,
   };
