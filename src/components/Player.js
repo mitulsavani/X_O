@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, Text, StyleSheet} from 'react-native';
+import { View, Text, Image, StyleSheet} from 'react-native';
 import Icon from 'react-native-vector-icons/Entypo';
 import { X_COLOR, O_COLOR } from '../styles/colors';
 
@@ -7,7 +7,7 @@ import { X_COLOR, O_COLOR } from '../styles/colors';
 class Player extends Component {
 
   renderPlayerCard() {
-    const { title, iconName, nextPlayer, id } = this.props;
+    const { title, iconName, playerImage, nextPlayer, id } = this.props;
 
     const getWidth = (nextPlayer) => {
       if(nextPlayer === id)
@@ -23,16 +23,25 @@ class Player extends Component {
         return O_COLOR;
     }
 
+    const assetsObject = {
+      p1: require('../../assets/p1.png'),
+      p2: require('../../assets/p2.png'),
+    }
+
     return (
       <View>
         <View style={[styles.playerContainer, { borderWidth: getWidth(nextPlayer) }]}>
-          <Text style={{color: 'white', marginBottom: 10}}>
+          <Image
+            style={{width: 60, height: 60, borderRadius: 40, backgroundColor: 'transparent'}} 
+            source={assetsObject[playerImage]}
+          />
+          <Text style={{color: 'white', padding: 10, fontWeight: 'bold'}}>
             {title}
           </Text>
           <Icon
             name={iconName}
             color={getIconColor(iconName)}
-            size={id === 'X' ? 30 : 20}
+            size={id === 'X' ? 25 : 20}
           />
         </View>
         <View style={{position: 'absolute', left: 0, right: 0, bottom: -25,}}>
@@ -58,8 +67,8 @@ const styles = StyleSheet.create({
     margin: 20,
   },
   playerContainer: {
-    height: 160, 
-    width: 120, 
+    height: 140, 
+    width: 110, 
     borderColor: '#fff', 
     borderRadius: 10, 
     backgroundColor: '#27175D',
