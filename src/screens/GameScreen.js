@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import {
-  StyleSheet,
   View,
   Text,
   Alert
@@ -9,7 +8,7 @@ import { connect } from 'react-redux';
 import { newGame, updateCell, togglePlayer, checkGameOver } from '../redux/actions';
 import Board from '../components/Board';
 import Player  from '../components/Player';
-import { GAME_BACKGROUND_COLOR, BOARD_COLOR } from '../styles/colors';
+import GameScreenStyles from '../styles/GameScreenStyles';
 
 
 class GameScreen extends Component {
@@ -37,18 +36,12 @@ class GameScreen extends Component {
 
   renderHeading = () => {
     return(
-      <View style={styles.headingContainer}>
-        <Text style={{alignSelf: 'flex-start', fontSize: 50, color: 'white'}}>
+      <View style={GameScreenStyles.headingContainer}>
+        <Text style={GameScreenStyles.headingStyle}>
           TIC TAC TOE
         </Text>
-      <View
-        style={{
-          borderBottomColor: '#FFD032',
-          borderBottomWidth: 10,
-          borderRadius: 10,
-        }}
-      />
-  </View>
+        <View style={GameScreenStyles.headingLine}/>
+      </View>
     );
   }
 
@@ -57,7 +50,7 @@ class GameScreen extends Component {
     const { currentPlayer } = game;
 
     return(
-      <View style={styles.playerContainer}>
+      <View style={GameScreenStyles.playerContainer}>
         <Player
           title="Atavus"
           iconName="cross"
@@ -79,8 +72,8 @@ class GameScreen extends Component {
     const { board } = game;
 
     return(
-      <View style={styles.boardContainer}>
-        <View style={styles.boardStyling}>
+      <View style={GameScreenStyles.boardContainer}>
+        <View style={GameScreenStyles.boardStyle}>
           <Board 
             board={board} 
             gameOver={this.props.gameOver}
@@ -120,7 +113,7 @@ class GameScreen extends Component {
 
   render() {
     return (
-      <View style={styles.container}>
+      <View style={GameScreenStyles.container}>
       { this.renderHeading() }
       { this.renderPlayersCard() }
       { this.renderBoard() }
@@ -130,44 +123,7 @@ class GameScreen extends Component {
   }
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
-    backgroundColor: GAME_BACKGROUND_COLOR
-  },
-  headingContainer: {
-    flex: 0.1,
-    justifyContent: 'flex-end',
-    marginTop: 40
-  },
-  playerContainer: {
-    flex: 0.4,
-    padding: 10,
-    justifyContent: 'center',
-    alignItems: 'center',
-    flexDirection: 'row'
-  },
-  boardContainer: {
-    flex: 0.5,
-    padding: 10,
-  },
-  boardStyling: {
-    alignContent: 'center',
-    height: 350, 
-    width: 350, 
-    borderRadius: 20, 
-    backgroundColor: BOARD_COLOR, 
-    padding: 10
-  },
-});
-
-
 const mapStateToProps = (state) => {
-  console.log('------------------------------------');
-  console.log('State: ', state.game);
-  console.log('------------------------------------');
   return {
     game: state.game,
   };

@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
-import { View, Text, Image, StyleSheet} from 'react-native';
+import { View, Text, Image } from 'react-native';
 import Icon from 'react-native-vector-icons/Entypo';
 import { X_COLOR, O_COLOR } from '../styles/colors';
+import PlayerStyles from '../styles/components/PlayerStyles';
 
 
 class Player extends Component {
@@ -14,8 +15,8 @@ class Player extends Component {
     }
 
     return(
-      <View style={{position: 'absolute', left: 0, right: 0, bottom: -25,}}>
-        <Text style={{color: 'white', fontWeight: 'bold', alignSelf: 'center'}}>Your Turn</Text>
+      <View style={PlayerStyles.currentTurnContainer}>
+        <Text style={PlayerStyles.currentTurnTextStyle}>Your Turn</Text>
       </View>
     )
   }
@@ -37,12 +38,12 @@ class Player extends Component {
 
     return (
       <View>
-        <View style={[styles.playerContainer, { borderWidth: currentPlayer ? 1 : 0 }]}>
+        <View style={[PlayerStyles.cardContainer, { borderWidth: currentPlayer ? 1 : 0 }]}>
           <Image
-            style={{width: 60, height: 60, borderRadius: 40}} 
+            style={PlayerStyles.avatar} 
             source={assetsObject[playerImage]}
           />
-          <Text style={{color: 'white', padding: 10, fontWeight: 'bold'}}>
+          <Text style={PlayerStyles.titleStyle}>
             {title}
           </Text>
           <Icon
@@ -58,26 +59,11 @@ class Player extends Component {
 
   render() {
     return (
-      <View style={styles.container}>
+      <View style={PlayerStyles.container}>
         { this.renderPlayerCard() }
       </View>
     );
   }
 };
-
-const styles = StyleSheet.create({
-  container: {
-    margin: 20,
-  },
-  playerContainer: {
-    height: 140, 
-    width: 110, 
-    borderColor: '#fff', 
-    borderRadius: 10, 
-    backgroundColor: '#27175D',
-    justifyContent: 'center',
-    alignItems: 'center' 
-  }
-});
 
 export default Player;

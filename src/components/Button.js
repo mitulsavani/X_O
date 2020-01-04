@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
-import { TouchableOpacity, StyleSheet, View } from 'react-native';
-import { CELL_COLOR, X_COLOR, O_COLOR } from '../styles/colors';
+import { TouchableOpacity, View } from 'react-native';
+import { X_COLOR, O_COLOR } from '../styles/colors';
 import Icon from 'react-native-vector-icons/Entypo';
+import ButtonStyles from '../styles/components/ButtonStyles';
 
 class Button extends Component {
   constructor(props) {
@@ -36,11 +37,10 @@ class Button extends Component {
     }
 
     return(
-      <View style={{justifyContent: 'center', alignItems: 'center'}}>
+      <View style={ButtonStyles.iconContainer}>
         {currentPlayer}
       </View>
     )
-
   }
 
   render() {
@@ -49,7 +49,7 @@ class Button extends Component {
     return (
       <TouchableOpacity
         activeOpacity={0.7}
-        style={styles.buttonStyling}
+        style={ButtonStyles.buttonStyling}
         onPress={this.handleClick}
         disabled={cellValue !== null}
       >
@@ -58,17 +58,5 @@ class Button extends Component {
     );
   }
 }
-
-const styles = StyleSheet.create({
-  buttonStyling: {
-    height: 100,
-    width: 100,
-    borderRadius: 15,
-    margin: 5,
-    backgroundColor: CELL_COLOR,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-});
 
 export default Button;

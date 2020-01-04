@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
-import { View, StyleSheet} from 'react-native';
+import { View } from 'react-native';
 import Cell from './Cell';
+import BoardStyles from '../styles/components/BoardStyles';
 
 class Board extends Component {
 
@@ -18,20 +19,11 @@ class Board extends Component {
 
   render() {
     return (
-      <View style = {styles.container}>
+      <View style = {BoardStyles.container}>
         { this.renderRows() }
       </View>
     );
   }
 };
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-  },
-  row: {
-    flexDirection: 'row',
-  }
-});
 
 export default Board;

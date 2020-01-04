@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
-import { View, StyleSheet} from 'react-native';
+import { View } from 'react-native';
 import Button from './Button';
+import CellStyles from '../styles/components/CellStyles';
 
 class Cell extends Component {
 
@@ -18,20 +19,12 @@ class Cell extends Component {
   }
 
   render() {
-
     return (
-      <View style={styles.container}>
+      <View style={CellStyles.container}>
         { this.renderColumns() }
       </View>
     );
-  }  
+  }
 };
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    flexDirection: 'row',
-  },
-});
 
 export default Cell;
