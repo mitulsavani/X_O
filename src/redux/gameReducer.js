@@ -72,6 +72,9 @@ const gameReducer = (state = defaultState, action) => {
         board: updatedBoard,
       }
     case TOGGLE_PLAYER:
+      if(state.winner !== null) 
+        return state;
+
       const nextPlayer = state.currentPlayer === 'X' ? 'O' : 'X';
 
       return {

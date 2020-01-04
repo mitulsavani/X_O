@@ -38,7 +38,7 @@ class GameScreen extends Component {
     return(
       <View style={GameScreenStyles.headingContainer}>
         <Text style={GameScreenStyles.headingStyle}>
-          TIC TAC TOE
+          Tic Tac Toe
         </Text>
         <View style={GameScreenStyles.headingLine}/>
       </View>

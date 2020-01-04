@@ -1,5 +1,5 @@
 import { StyleSheet } from 'react-native';
-import { GAME_BACKGROUND_COLOR, BOARD_COLOR, HEADING_LINE_COLOR } from './colors';
+import { GAME_BACKGROUND_COLOR, BOARD_COLOR, HEADING_LINE_COLOR, X_COLOR, O_COLOR } from './colors';
 
 const GameScreenStyles = StyleSheet.create({
   container: {
@@ -10,29 +10,32 @@ const GameScreenStyles = StyleSheet.create({
   },
   headingContainer: {
     flex: 0.1,
-    justifyContent: 'flex-end',
-    marginTop: 40
+    padding: 30,
   },
   playerContainer: {
-    flex: 0.4,
+    flex: 0.3,
     padding: 10,
     justifyContent: 'center',
     alignItems: 'center',
-    flexDirection: 'row'
+    flexDirection: 'row',
   },
   boardContainer: {
-    flex: 0.5,
+    flex: 0.6,
     padding: 10,
+    alignItems: 'center',
+    justifyContent: 'center',
   },
   headingStyle: {
-    alignSelf: 'flex-start',
+    alignSelf: 'center',
+    padding: 5,
     fontSize: 50, 
-    color: 'white',
+    fontWeight: 'bold',
+    color: O_COLOR,
   },
   headingLine: {
-    borderBottomColor: HEADING_LINE_COLOR,
     borderBottomWidth: 10,
     borderRadius: 10,
+    borderBottomColor: X_COLOR,
   },
   boardStyle: {
     alignContent: 'center',
