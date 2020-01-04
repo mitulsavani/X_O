@@ -6,7 +6,7 @@ import {
   Alert
 } from 'react-native';
 import { connect } from 'react-redux';
-import { newGame, updateCell, togglePlayer, checkWinner } from '../redux/actions';
+import { newGame, updateCell, togglePlayer, checkGameOver } from '../redux/actions';
 import Board from '../components/Board';
 import Player  from '../components/Player';
 import { PRIMARY_COLOR } from '../styles/colors';
@@ -27,7 +27,7 @@ class GameScreen extends Component {
   handleClick(rowIndex, colIndex) {
     
     this.props.updateCell(rowIndex, colIndex);
-    this.props.checkWinner();
+    this.props.checkGameOver();
     this.props.togglePlayer();
   }
 
@@ -38,7 +38,7 @@ class GameScreen extends Component {
     this.props.newGame();
   }
 
-  renderStatus = () => {
+  renderPlayersCard = () => {
     const { game } = this.props
     const { nextPlayer } = game;
 
@@ -61,20 +61,36 @@ class GameScreen extends Component {
       </View>
     );
   }
-  render() {
+
+  checkGameStatus = () => {
     const { game } = this.props;
-    const { board, gameOver } = game;
+    const { winner, gameOver } = game;
 
     if(gameOver === true) {
+      if(winner !== null) {
+        Alert.alert(
+          'Victory',
+          `${winner} - Wins the game`,
+          [{ text: 'Reset Game', onPress: () => this.resetGame()}],
+          { cancelable: false }
+        );
+      } else {
+        Alert.alert(
+          'Game Tied',
+          'Please try again',
+          [{ text: 'Reset Game', onPress: () => this.resetGame()}],
+          { cancelable: false }
+        );
+      }
+    } 
 
-      Alert.alert(
-        'Victory',
-        'player win',
-        [{ text: 'Reset Game', onPress: () => this.resetGame()}],
-        { cancelable: false }
-      );
-    }
 
+  }
+  render() {
+    const { game } = this.props;
+    const { board } = game;
+
+    this.checkGameStatus();
     
     return (
       <View style={styles.container}>
@@ -91,7 +107,7 @@ class GameScreen extends Component {
         />
       </View>
       <View style={styles.playerContainer}>
-          {this.renderStatus()}
+          { this.renderPlayersCard() }
       </View>
       <View style={styles.boardContainer}>
         <View style={styles.boardStyling}>
@@ -141,6 +157,9 @@ const styles = StyleSheet.create({
 
 
 const mapStateToProps = (state) => {
+  console.log('------------------------------------');
+  console.log('State: ', state.game);
+  console.log('------------------------------------');
   return {
     game: state.game,
   };
@@ -148,5 +167,5 @@ const mapStateToProps = (state) => {
 
 export default connect(
   mapStateToProps, 
-  { newGame, updateCell, togglePlayer, checkWinner }
+  { newGame, updateCell, togglePlayer, checkGameOver }
 )(GameScreen);

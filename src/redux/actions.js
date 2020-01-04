@@ -3,7 +3,7 @@ import { InitialState } from "./InitialState";
 export const NEW_GAME = 'NEW_GAME';
 export const UPDATE_CELL = 'UPDATE_CELL';
 export const TOGGLE_PLAYER = 'TOGGLE_PLAYER';
-export const CHECK_WINNER = 'CHECK_WINNER';
+export const CHECK_GAME_OVER = 'CHECK_GAME_OVER';
 
 export const newGame = () => (dispatch) => {
   dispatch({
@@ -15,7 +15,7 @@ export const newGame = () => (dispatch) => {
 export const updateCell = (rowIndex, colIndex) => (dispatch) => {
   dispatch({
     type: UPDATE_CELL,
-    payload:{row: rowIndex, col: colIndex}
+    payload: {row: rowIndex, col: colIndex}
   })
 };
 
@@ -25,8 +25,8 @@ export const togglePlayer = () => (dispatch) => {
   });
 };
 
-export const checkWinner = () => (dispatch) => {
+export const checkGameOver = () => (dispatch) => {
   dispatch({
-    type: CHECK_WINNER,
+    type: CHECK_GAME_OVER,
   });
 };

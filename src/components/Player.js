@@ -32,7 +32,7 @@ class Player extends Component {
       <View>
         <View style={[styles.playerContainer, { borderWidth: getWidth(nextPlayer) }]}>
           <Image
-            style={{width: 60, height: 60, borderRadius: 40, backgroundColor: 'transparent'}} 
+            style={{width: 60, height: 60, borderRadius: 40}} 
             source={assetsObject[playerImage]}
           />
           <Text style={{color: 'white', padding: 10, fontWeight: 'bold'}}>
