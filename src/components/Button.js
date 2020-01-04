@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import { TouchableOpacity, View } from 'react-native';
 import { X_COLOR, O_COLOR } from '../styles/colors';
 import Icon from 'react-native-vector-icons/Entypo';
@@ -12,7 +13,9 @@ class Button extends Component {
   }
 
   handleClick() {
-    this.props.onClick(this.props.rowIndex, this.props.colIndex);
+    const { rowIndex, colIndex } = this.props;
+
+    this.props.onClick(rowIndex, colIndex);
   }
 
   getIcon = (player) => {
@@ -40,7 +43,7 @@ class Button extends Component {
       <View style={ButtonStyles.iconContainer}>
         {currentPlayer}
       </View>
-    )
+    );
   }
 
   render() {
@@ -58,5 +61,13 @@ class Button extends Component {
     );
   }
 }
+
+Button.propTypes = {
+  cellValue: PropTypes.string,
+  rowIndex: PropTypes.number,
+  colIndex: PropTypes.number,
+  gameOver: PropTypes.bool,
+  onClick: PropTypes.func,
+};
 
 export default Button;

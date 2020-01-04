@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import { View } from 'react-native';
 import Cell from './Cell';
 import BoardStyles from '../styles/components/BoardStyles';
@@ -24,6 +25,12 @@ class Board extends Component {
       </View>
     );
   }
+};
+
+Board.propTypes = {
+  board: PropTypes.array,
+  gameOver: PropTypes.bool,
+  onClick: PropTypes.func,
 };
 
 export default Board;

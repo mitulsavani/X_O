@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import { View } from 'react-native';
 import Button from './Button';
 import CellStyles from '../styles/components/CellStyles';
@@ -15,7 +16,7 @@ class Cell extends Component {
         gameOver={this.props.gameOver}
         key={val}
       />
-    )
+    );
   }
 
   render() {
@@ -25,6 +26,13 @@ class Cell extends Component {
       </View>
     );
   }
+}
+
+Cell.propTypes = {
+  boardRow: PropTypes.array,
+  rowIndex: PropTypes.number,
+  gameOver: PropTypes.bool,
+  onClick: PropTypes.func,
 };
 
 export default Cell;

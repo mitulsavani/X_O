@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import { View, Text, Image } from 'react-native';
 import Icon from 'react-native-vector-icons/Entypo';
 import { X_COLOR, O_COLOR } from '../styles/colors';
@@ -18,7 +19,7 @@ class Player extends Component {
       <View style={PlayerStyles.currentTurnContainer}>
         <Text style={PlayerStyles.currentTurnTextStyle}>Your Turn</Text>
       </View>
-    )
+    );
   }
 
   renderPlayerCard() {
@@ -64,6 +65,13 @@ class Player extends Component {
       </View>
     );
   }
+}
+
+Player.propTypes = {
+  title: PropTypes.string,
+  iconName: PropTypes.string,
+  playerImage: PropTypes.string,
+  currentPlayer: PropTypes.bool,
 };
 
 export default Player;
