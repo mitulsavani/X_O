@@ -6,15 +6,22 @@ import { X_COLOR, O_COLOR } from '../styles/colors';
 
 class Player extends Component {
 
-  renderPlayerCard() {
-    const { title, iconName, playerImage, nextPlayer, id } = this.props;
+  displayCurrentPlayerTurn = () => {
+    const { currentPlayer } = this.props;
 
-    const getWidth = (nextPlayer) => {
-      if(nextPlayer === id)
-        return 1;
-      else
-        return 0;
+    if(currentPlayer === null || currentPlayer === undefined || currentPlayer === false ) {
+      return null;
     }
+
+    return(
+      <View style={{position: 'absolute', left: 0, right: 0, bottom: -25,}}>
+        <Text style={{color: 'white', fontWeight: 'bold', alignSelf: 'center'}}>Your Turn</Text>
+      </View>
+    )
+  }
+
+  renderPlayerCard() {
+    const { title, iconName, playerImage, currentPlayer } = this.props;
 
     const getIconColor = (iconName) => {
       if(iconName === "cross") 
@@ -30,7 +37,7 @@ class Player extends Component {
 
     return (
       <View>
-        <View style={[styles.playerContainer, { borderWidth: getWidth(nextPlayer) }]}>
+        <View style={[styles.playerContainer, { borderWidth: currentPlayer ? 1 : 0 }]}>
           <Image
             style={{width: 60, height: 60, borderRadius: 40}} 
             source={assetsObject[playerImage]}
@@ -41,18 +48,14 @@ class Player extends Component {
           <Icon
             name={iconName}
             color={getIconColor(iconName)}
-            size={id === 'X' ? 25 : 20}
+            size={iconName === 'cross' ? 25 : 20}
           />
         </View>
-        <View style={{position: 'absolute', left: 0, right: 0, bottom: -25,}}>
-        {
-          nextPlayer &&
-          nextPlayer === id ? <Text style={{color: 'white', fontWeight: 'bold', alignSelf: 'center'}}>Your Turn</Text> : null
-        }
-        </View>
+        { this.displayCurrentPlayerTurn() }
       </View>
     );
   }
+
   render() {
     return (
       <View style={styles.container}>

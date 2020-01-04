@@ -9,7 +9,7 @@ import { connect } from 'react-redux';
 import { newGame, updateCell, togglePlayer, checkGameOver } from '../redux/actions';
 import Board from '../components/Board';
 import Player  from '../components/Player';
-import { PRIMARY_COLOR } from '../styles/colors';
+import { GAME_BACKGROUND_COLOR, BOARD_COLOR } from '../styles/colors';
 
 
 class GameScreen extends Component {
@@ -32,83 +32,53 @@ class GameScreen extends Component {
   }
 
   resetGame() {
-    console.log('------------------------------------');
-    console.log('I am in Reset');
-    console.log('------------------------------------');
     this.props.newGame();
+  }
+
+  renderHeading = () => {
+    return(
+      <View style={styles.headingContainer}>
+        <Text style={{alignSelf: 'flex-start', fontSize: 50, color: 'white'}}>
+          TIC TAC TOE
+        </Text>
+      <View
+        style={{
+          borderBottomColor: '#FFD032',
+          borderBottomWidth: 10,
+          borderRadius: 10,
+        }}
+      />
+  </View>
+    );
   }
 
   renderPlayersCard = () => {
     const { game } = this.props
-    const { nextPlayer } = game;
+    const { currentPlayer } = game;
 
     return(
-      <View style={{flexDirection: 'row', alignItems: 'center' }}>
+      <View style={styles.playerContainer}>
         <Player
-          id="X"
           title="Atavus"
           iconName="cross"
           playerImage="p1"
-          nextPlayer={nextPlayer}
+          currentPlayer={currentPlayer === 'X' ? true : false}
         />
         <Player
-          id="O"
           title="Kimera"
           iconName="circle"
           playerImage="p2"
-          nextPlayer={nextPlayer}
+          currentPlayer={currentPlayer === 'O' ? true : false}
         />
       </View>
     );
   }
 
-  checkGameStatus = () => {
-    const { game } = this.props;
-    const { winner, gameOver } = game;
-
-    if(gameOver === true) {
-      if(winner !== null) {
-        Alert.alert(
-          'Victory',
-          `${winner} - Wins the game`,
-          [{ text: 'Reset Game', onPress: () => this.resetGame()}],
-          { cancelable: false }
-        );
-      } else {
-        Alert.alert(
-          'Game Tied',
-          'Please try again',
-          [{ text: 'Reset Game', onPress: () => this.resetGame()}],
-          { cancelable: false }
-        );
-      }
-    } 
-
-
-  }
-  render() {
+  renderBoard = () => {
     const { game } = this.props;
     const { board } = game;
 
-    this.checkGameStatus();
-    
-    return (
-      <View style={styles.container}>
-      <View style={styles.headingContainer}>
-        <Text style={{alignSelf: 'flex-start', fontSize: 50, color: 'white'}}>
-          TIC TAC TOE
-        </Text>
-        <View
-          style={{
-            borderBottomColor: '#FFD032',
-            borderBottomWidth: 10,
-            borderRadius: 10,
-          }}
-        />
-      </View>
-      <View style={styles.playerContainer}>
-          { this.renderPlayersCard() }
-      </View>
+    return(
       <View style={styles.boardContainer}>
         <View style={styles.boardStyling}>
           <Board 
@@ -117,7 +87,44 @@ class GameScreen extends Component {
             onClick={this.handleClick}
           />
         </View>
-      </View>      
+      </View> 
+    );
+  }
+
+  displayGameStatusAlert = () => {
+    const { game } = this.props;
+    const { winner, gameOver } = game;
+
+    if(gameOver === true) {
+      if(winner !== null) {
+        return(
+          Alert.alert(
+            'Victory',
+            `${winner} - Wins the game`,
+            [{ text: 'Reset Game', onPress: () => this.resetGame()}],
+            { cancelable: false }
+          )
+        )
+      } else {
+        return(
+          Alert.alert(
+            'Game Tied',
+            'Play Again',
+            [{ text: 'Reset Game', onPress: () => this.resetGame()}],
+            { cancelable: false }
+          )
+        )
+      }
+    } 
+  }
+
+  render() {
+    return (
+      <View style={styles.container}>
+      { this.renderHeading() }
+      { this.renderPlayersCard() }
+      { this.renderBoard() }
+      { this.displayGameStatusAlert() }
       </View>
     );
   }
@@ -128,7 +135,7 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
-    backgroundColor: '#3A238C'
+    backgroundColor: GAME_BACKGROUND_COLOR
   },
   headingContainer: {
     flex: 0.1,
@@ -140,6 +147,7 @@ const styles = StyleSheet.create({
     padding: 10,
     justifyContent: 'center',
     alignItems: 'center',
+    flexDirection: 'row'
   },
   boardContainer: {
     flex: 0.5,
@@ -150,7 +158,7 @@ const styles = StyleSheet.create({
     height: 350, 
     width: 350, 
     borderRadius: 20, 
-    backgroundColor: PRIMARY_COLOR, 
+    backgroundColor: BOARD_COLOR, 
     padding: 10
   },
 });

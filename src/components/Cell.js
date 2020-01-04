@@ -10,12 +10,13 @@ class Cell extends Component {
         onClick={this.props.onClick}
         rowIndex={this.props.rowIndex}
         colIndex={val}
-        buttonValue={this.props.boardRow[val]}
+        cellValue={this.props.boardRow[val]}
         gameOver={this.props.gameOver}
         key={val}
       />
     )
   }
+
   render() {
 
     return (

@@ -26,7 +26,7 @@ const gameReducer = (state = defaultState, action) => {
     return winningPatterns.some(pattern => pattern.every(cell => {
       const { r, c } = cell;
 
-      return board[r][c] === state.nextPlayer;
+      return board[r][c] === state.currentPlayer;
     }));
   }
 
@@ -35,11 +35,11 @@ const gameReducer = (state = defaultState, action) => {
     const notFull = board.some(row => row.some(col => col === null));
   
     return !notFull;
-  };
+  }
 
   const checkGameOver = (board) => {
     if(checkWinner(board)) {
-      return state.nextPlayer;
+      return state.currentPlayer;
     }
     if(isBoardFull(board)) {
       return null;
@@ -48,6 +48,7 @@ const gameReducer = (state = defaultState, action) => {
   }
 
   const updateBoard = (currentBoard) => {
+    const { row, col } = action.payload;
   
     const newBoard = [
       [currentBoard[0][0], currentBoard[0][1], currentBoard[0][2]],
@@ -55,10 +56,10 @@ const gameReducer = (state = defaultState, action) => {
       [currentBoard[2][0], currentBoard[2][1], currentBoard[2][2]]
     ]
 
-    newBoard[action.payload.row][action.payload.col] = state.nextPlayer;
+    newBoard[row][col] = state.currentPlayer;
 
     return newBoard;
-  } 
+  }
 
   switch(action.type) {
     case NEW_GAME:
@@ -71,11 +72,11 @@ const gameReducer = (state = defaultState, action) => {
         board: updatedBoard,
       }
     case TOGGLE_PLAYER:
-      const togglePlayer = state.nextPlayer === 'X' ? 'O' : 'X';
+      const nextPlayer = state.currentPlayer === 'X' ? 'O' : 'X';
 
       return {
         ...state,
-        nextPlayer: togglePlayer,
+        currentPlayer: nextPlayer,
       }
     case CHECK_GAME_OVER:
       const result = checkGameOver(state.board);

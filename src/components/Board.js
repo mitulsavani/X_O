@@ -1,12 +1,11 @@
 import React, { Component } from 'react';
 import { View, StyleSheet} from 'react-native';
-import { PRIMARY_COLOR } from '../styles/colors';
 import Cell from './Cell';
 
 class Board extends Component {
 
   renderRows() {
-    return [0, 1, 2].map(val => 
+    return [0, 1, 2].map(val =>
       <Cell
         onClick={this.props.onClick}
         rowIndex={val}
@@ -16,6 +15,7 @@ class Board extends Component {
       />
     );
   }
+
   render() {
     return (
       <View style = {styles.container}>

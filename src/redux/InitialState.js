@@ -5,6 +5,6 @@ export const InitialState = () => ({
     [null, null, null]
   ],
   winner: null,
-  nextPlayer: 'X',
+  currentPlayer: 'X',
   gameOver: false,
 });

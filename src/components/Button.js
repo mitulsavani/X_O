@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import { Text, TouchableOpacity, StyleSheet, View } from 'react-native';
-import { SECONDARY_COLOR, X_COLOR, O_COLOR } from '../styles/colors';
+import { TouchableOpacity, StyleSheet, View } from 'react-native';
+import { CELL_COLOR, X_COLOR, O_COLOR } from '../styles/colors';
 import Icon from 'react-native-vector-icons/Entypo';
 
 class Button extends Component {
@@ -28,23 +28,32 @@ class Button extends Component {
     }
   }
 
+  renderCellIcon = (cellValue) => {
+    const currentPlayer = this.getIcon(cellValue);
+
+    if(cellValue === null || cellValue === undefined) {
+      return null;
+    }
+
+    return(
+      <View style={{justifyContent: 'center', alignItems: 'center'}}>
+        {currentPlayer}
+      </View>
+    )
+
+  }
+
   render() {
-    const {buttonValue} = this.props
-    const currentPlayer = this.getIcon(buttonValue);
+    const { cellValue } = this.props;
 
     return (
       <TouchableOpacity
         activeOpacity={0.7}
         style={styles.buttonStyling}
         onPress={this.handleClick}
-        disabled={buttonValue !== null}
+        disabled={cellValue !== null}
       >
-      {
-        currentPlayer &&
-        <View style={{justifyContent: 'center', alignItems: 'center'}}>
-          {currentPlayer}
-        </View>
-      }
+      { this.renderCellIcon(cellValue) }
       </TouchableOpacity>
     );
   }
@@ -56,7 +65,7 @@ const styles = StyleSheet.create({
     width: 100,
     borderRadius: 15,
     margin: 5,
-    backgroundColor: SECONDARY_COLOR,
+    backgroundColor: CELL_COLOR,
     justifyContent: 'center',
     alignItems: 'center',
   },
