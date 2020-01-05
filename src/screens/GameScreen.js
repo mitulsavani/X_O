@@ -9,6 +9,9 @@ import { newGame, updateCell, togglePlayer, checkGameOver } from '../redux/actio
 import Board from '../components/Board';
 import Player  from '../components/Player';
 import GameScreenStyles from '../styles/GameScreenStyles';
+import { LinearGradient } from 'expo-linear-gradient';
+
+
 
 
 class GameScreen extends Component {
@@ -41,7 +44,7 @@ class GameScreen extends Component {
           Tic Tac Toe
         </Text>
         <View style={GameScreenStyles.headingLine}/>
-      </View>
+        </View>
     );
   }
 
@@ -113,12 +116,16 @@ class GameScreen extends Component {
 
   render() {
     return (
-      <View style={GameScreenStyles.container}>
-      { this.renderHeading() }
-      { this.renderPlayersCard() }
-      { this.renderBoard() }
-      { this.displayGameStatusAlert() }
-      </View>
+      <LinearGradient
+        colors={['#432BAA', '#351F87', '#24125C']}
+        style={GameScreenStyles.container}
+      >
+        { this.displayGameStatusAlert() }
+        { this.renderHeading() }
+        { this.renderPlayersCard() }
+        { this.renderBoard() }
+      </LinearGradient>
+
     );
   }
 }

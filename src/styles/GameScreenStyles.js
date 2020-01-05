@@ -1,12 +1,11 @@
 import { StyleSheet } from 'react-native';
-import { GAME_BACKGROUND_COLOR, BOARD_COLOR, HEADING_LINE_COLOR, X_COLOR, O_COLOR } from './colors';
+import { BOARD_COLOR, X_COLOR, O_COLOR } from './colors';
 
 const GameScreenStyles = StyleSheet.create({
   container: {
     flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
-    backgroundColor: GAME_BACKGROUND_COLOR
   },
   headingContainer: {
     flex: 0.1,
@@ -27,7 +26,7 @@ const GameScreenStyles = StyleSheet.create({
   },
   headingStyle: {
     alignSelf: 'center',
-    padding: 5,
+    padding: 10,
     fontSize: 50, 
     fontWeight: 'bold',
     color: O_COLOR,
