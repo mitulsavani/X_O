@@ -15,13 +15,13 @@ Welcome to Tic Tac Toe mobile application game, built with React Native.
     - [ Redux ](#redux)
         - [ State ](#state) 
         - [ Actions ](#actions)
-        - [ Reducers ](#reducers)
-- Algorithms Explanation
-    - Check Winner
-    - Check Draw
+        - [ Reducer ](#reducer)
+- [ Algorithms Explanation ](#algorithm-explanation)
+    - [ Update Board ](#update-board)
+    - [ Check Winner / Game Draw ](#check-winner--game-draw)
+    - [ Toggle/Alternate Player Turn ](#toggle-player-turn)
     - Alert
-    - Player Click on board
-    - Toggle/Alternate Player Turn
+  
 - Future Ideas
     - Player vs CPU
 - License
@@ -48,7 +48,9 @@ yarn run ios
 yarn run android
 ```
 
-This project was initiated using [ Expo CLI Quickstart ](https://facebook.github.io/react-native/docs/getting-started).
+This project was bootstrapped with [ Expo CLI Quickstart ](https://facebook.github.io/react-native/docs/getting-started).
+
+Note: I could have initiated this project using React Native CLI for more flexibility on native side. However, I decided to use Expo CLI because I knew before hand that this application is a compartively small demo application which would not require much third party libraries.
 
 ## Game
 
@@ -84,10 +86,10 @@ X_O
          |__ colors.js
          |__ GameScreenStyles.js
          |__ components
-             |__ Board.js
-             |__ Button.js
-             |__ Cell.js
-             |__ Player.js
+             |__ BoardStyles.js
+             |__ ButtonStyles.js
+             |__ CellStyles.js
+             |__ PlayerStyles.js
 ```
 
 ### Custom components
@@ -126,7 +128,7 @@ export const InitialState = () => ({
 
 * `NEW_GAME` will be dispatched in 2 scenarios; when users open up an application which returns the Initial_State, and when users clicks on the resets game button
 of the alert. This alert is rendered when game declares the draw/winner of the game.
-* `UPDATE_CELL` will be dispatched when users clicks on one of the 9 cells of the board. This updated the value of that cell.
+* `UPDATE_CELL` will be dispatched when users clicks on one of the 9 cells of the board. This updates the value of that cell.
 * `TOGGLE_PLAYER` will be dispatched to alter players turn.
 * `CHECK_GAME_OVER` will be dispatched to check whether player have won the game.
 
@@ -137,6 +139,125 @@ export const TOGGLE_PLAYER = 'TOGGLE_PLAYER';
 export const CHECK_GAME_OVER = 'CHECK_GAME_OVER';
 ```
 
-### Reducers
+### Reducer
 
-The application have one reducer called as `gameReducer` which is responsible to update and return the new state.
+The application have one reducer named as `gameReducer.js` which is responsible to return the updated state.
+
+
+## Algorithms Explanation
+
+### Update Board
+
+From GameScreen.js : <br>
+I am fetching the  `rowIndex` and `colIndex` of the cell that user clicks from the  component props and then dispatching `UPDATE_CELL` action with the payload( rowIndex and colIndex). 
+
+From gameReducer.js : <br>
+Then, I am making a copy of our `currentBoard` and changing the value of that cell with the `currentPlayer ('X' or 'O')` and returning the `newBoard`.
+
+```jsx
+const updateBoard = (currentBoard) => {
+  const { row, col } = action.payload;
+
+  const newBoard = [
+    [currentBoard[0][0], currentBoard[0][1], currentBoard[0][2]],
+    [currentBoard[1][0], currentBoard[1][1], currentBoard[1][2]],
+    [currentBoard[2][0], currentBoard[2][1], currentBoard[2][2]]
+  ]
+
+  newBoard[row][col] = state.currentPlayer;
+
+  return newBoard;
+}
+```
+
+Then we will update our state with the newBoard:
+```jsx
+case UPDATE_CELL:
+const updatedBoard = updateBoard(state.board);
+
+return {
+  ...state,
+  board: updatedBoard,
+}
+```
+### Check Winner / Game Draw
+
+From gameReducer.js: <br>
+
+There are in total of 8 ways a player can win this game on 3x3 board. let's look at those patterns: 
+```jsx
+const winningPatterns = [
+  // Horizontals
+  [{ r: 0, c: 0 }, { r: 0, c: 1 }, { r: 0, c: 2 }],
+  [{ r: 1, c: 0 }, { r: 1, c: 1 }, { r: 1, c: 2 }],
+  [{ r: 2, c: 0 }, { r: 2, c: 1 }, { r: 2, c: 2 }],
+
+  // Verticals
+  [{ r: 0, c: 0 }, { r: 1, c: 0 }, { r: 2, c: 0 }],
+  [{ r: 0, c: 1 }, { r: 1, c: 1 }, { r: 2, c: 1 }],
+  [{ r: 0, c: 2 }, { r: 1, c: 2 }, { r: 2, c: 2 }],
+
+  // Diagonals
+  [{ r: 0, c: 0 }, { r: 1, c: 1 }, { r: 2, c: 2 }],
+  [{ r: 0, c: 2 }, { r: 1, c: 1 }, { r: 2, c: 0 }],
+];
+```
+<br>
+
+The function checks if the  `currentPlayer` value matches with all the three positons of a single combination of the winningPatterns. 
+```jsx
+const checkWinner = (board) => {
+
+  return winningPatterns.some(pattern => pattern.every(cell => {
+    const { r, c } = cell;
+
+    return board[r][c] === state.currentPlayer;
+  }));
+}
+```
+<br>
+
+The function checks if our current board is full or not.
+```jsx
+const isBoardFull = (board) => {
+
+  const notFull = board.some(row => row.some(col => col === null));
+
+  return !notFull;
+}
+```
+<br>
+
+The function checks whether a player has won or if the game is draw ? By the end of the game, if all cell values are filled up and no player value have matched with one of the winning patters then the game will be considered as draw.
+
+Note: I am aware that the function returns three different kind of values (string, null, booleans). I think that this is considered as bad practice would definitely optimize this later. 
+
+```jsx
+const checkGameOver = (board) => {
+  if(checkWinner(board)) {
+    return state.currentPlayer;
+  }
+  if(isBoardFull(board)) {
+    return null;
+  }
+  return false;
+}
+```
+
+### Toggle Player Turn
+
+From gameReducer: <br>
+
+I am doing 2 things here; Firstly, check if winner is already declared, if so then there is no point in altering player because game is over! Ortherwise, alter the player.
+```jsx
+case TOGGLE_PLAYER:
+if(state.winner !== null) 
+  return state;
+
+const nextPlayer = state.currentPlayer === 'X' ? 'O' : 'X';
+
+return {
+  ...state,
+  currentPlayer: nextPlayer,
+}
+```
