@@ -16,15 +16,13 @@ Welcome to Tic Tac Toe mobile application game, built with React Native.
         - [ State ](#state) 
         - [ Actions ](#actions)
         - [ Reducer ](#reducer)
-- [ Algorithms Explanation ](#algorithm-explanation)
+- [ Algorithms Explanation ](#algorithms-explanation)
     - [ Update Board ](#update-board)
     - [ Check Winner / Game Draw ](#check-winner--game-draw)
     - [ Toggle/Alternate Player Turn ](#toggle-player-turn)
-    - Alert
-  
-- Future Ideas
-    - Player vs CPU
-- License
+    - [ Alert ](#alert)
+- [ Future Ideas ](#future-ideas)
+- [ Feedback ](#feedback)
 
 ## Overview
 
@@ -97,8 +95,8 @@ X_O
 The following components were built to complete the GameScreen:
 
 *  `Board` which renders the grid background
-*  `Cell` are used by Board to render 9 squares which finishes our 3x3 grid
-*  `Button` is used by Cell to render the value( X / O / null ) of that cell
+*  `Cell` is called by Board to render 9 squares which finishes our 3x3 grid
+*  `Button` is called by Cell to render the value( X / O / null ) of that cell
 *  `Player` to indicate players turn
 
 All custom custom components have a set of props which I am validating using [Prop-Types](https://github.com/facebook/prop-types).
@@ -261,3 +259,67 @@ return {
   currentPlayer: nextPlayer,
 }
 ```
+
+### Alert 
+
+From GameScreen.js: <br>
+
+I am rendering alert based on `winner` and `gameOver` entity from the state. If gameReducer have found out a winner then pop Victory alert, otherwise render Game-Tied alert. 
+
+```jsx
+displayGameStatusAlert = () => {
+  const { game } = this.props;
+  const { winner, gameOver } = game;
+
+  if(gameOver === true) {
+    if(winner !== null) {
+      return(
+        Alert.alert(
+          'Victory',
+          `${winner} - Wins the game`,
+          [{ text: 'Reset Game', onPress: () => this.resetGame()}],
+          { cancelable: false }
+        )
+      )
+    } else {
+      return(
+        Alert.alert(
+          'Game Tied',
+          'Play Again',
+          [{ text: 'Reset Game', onPress: () => this.resetGame()}],
+          { cancelable: false }
+        )
+      )
+    }
+  } 
+}
+```
+<br>
+
+When player presses the alert button, I am calling a `resetGame()`  function which re-renders the game with the Initial_State.
+```jsx
+resetGame() {
+  this.props.newGame();
+}
+```
+
+### Future Ideas
+
+* I am thinking to implement a algorithm by which a Player can play the game with CPU bot. What this means from technical side is after players' input, I will
+dispatch an action which will randomly select one null postition from the board and assign a value( X / O) to it. I found an interesting [article](https://towardsdatascience.com/tic-tac-toe-creating-unbeatable-ai-with-minimax-algorithm-8af9e52c1e7d) which might possibly help me achieve this feature.
+
+* As of now my app is dispatching three actions asynchronously in  one function `handleClick()`, this works completely fine, but this is also considered as a bad practice in my case. At some point of time I want to avoid this and dispatch the actions synchronously using `middleware`.
+
+```jsx
+handleClick(rowIndex, colIndex) {
+  
+  this.props.updateCell(rowIndex, colIndex);
+  this.props.checkGameOver();
+  this.props.togglePlayer();
+}
+```
+
+### Feedback
+
+In case if you have any questions or feedback about this application, feel free to reach out to me [**@mitulsavani**](https://github.com/mitulsavani)
+> created by Mitul Savani, updated on 01/05/2020
