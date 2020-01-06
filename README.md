@@ -149,7 +149,7 @@ The application has one reducer named as `gameReducer.js` which is responsible t
 From `GameScreen.js` : <br>
 I am fetching the  `rowIndex` and `colIndex` of the cell when player clicks on the cell from the component props and then dispatching `UPDATE_CELL` action with the payload( rowIndex and colIndex). 
 
-From gameReducer.js : <br>
+From `gameReducer.js` : <br>
 Then, I am making a copy of our `currentBoard` and changing the value of that cell with the `currentPlayer ('X' or 'O')` and returning the `newBoard`.
 
 ```jsx
@@ -180,7 +180,7 @@ return {
 ```
 ### Check Winner / Game Draw
 
-From _gameReducer.js_: <br>
+From `gameReducer.js` : <br>
 
 There are in total of 8 ways a player can win this game on 3x3 board. let's look at those patterns: 
 ```jsx
