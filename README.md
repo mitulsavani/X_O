@@ -48,7 +48,7 @@ yarn run android
 
 This project was bootstrapped with [ Expo CLI Quickstart ](https://facebook.github.io/react-native/docs/getting-started).
 
-Note: I could have initiated this project using React Native CLI for more flexibility on native side. However, I decided to use Expo CLI because I knew before hand that this application is a compartively small demo application which would not require much third party libraries.
+Note: I could have initiated this project using React Native CLI for more flexibility on native side. However, I decided to use Expo CLI because I knew before hand that this application is a comparatively small demo application which would not require much third party libraries.
 
 ## Game
 
@@ -96,14 +96,14 @@ The following components were built to complete the GameScreen:
 
 *  `Board` which renders the grid background
 *  `Cell` is called by Board to render 9 squares which finishes our 3x3 grid
-*  `Button` is called by Cell to render the value( X / O / null ) of that cell
+*  `Button` is called by Cell to render the value`( X / O / null )`of that cell
 *  `Player` to indicate players turn
 
-All custom custom components have a set of props which I am validating using [Prop-Types](https://github.com/facebook/prop-types).
+All custom components have a set of props which I am validating using [Prop-Types](https://github.com/facebook/prop-types).
 
 ### Screen & Navigation
 
-The game have one screen called as `GameScreen`. I was intitally thinking to make multiple screens for this game, but I did not see a point in doing because that would only increase users clicks to reach up to the main `GameScreen` and the navigation was aquired using [react navigation](https://reactnavigation.org/).
+The game have one screen called as `GameScreen`. I was intitally thinking to make multiple screens for this game, but I did not see a point in doing it because that would only increase player clicks to reach up to the main `GameScreen` and the navigation was acquired using [react navigation](https://reactnavigation.org/).
 
 ## Redux
 
@@ -124,9 +124,9 @@ export const InitialState = () => ({
 
 ### Actions
 
-* `NEW_GAME` will be dispatched in 2 scenarios; when users open up an application which returns the Initial_State, and when users clicks on the resets game button
+* `NEW_GAME` will be dispatched in 2 scenarios; when users open up an application which returns the Initial_State, and when player clicks on the resets game button
 of the alert. This alert is rendered when game declares the draw/winner of the game.
-* `UPDATE_CELL` will be dispatched when users clicks on one of the 9 cells of the board. This updates the value of that cell.
+* `UPDATE_CELL` will be dispatched when player clicks on one of the 9 cells of the board. This updates the value of that cell.
 * `TOGGLE_PLAYER` will be dispatched to alter players turn.
 * `CHECK_GAME_OVER` will be dispatched to check whether player have won the game.
 
@@ -139,15 +139,15 @@ export const CHECK_GAME_OVER = 'CHECK_GAME_OVER';
 
 ### Reducer
 
-The application have one reducer named as `gameReducer.js` which is responsible to return the updated state.
+The application has one reducer named as `gameReducer.js` which is responsible to return the updated state.
 
 
 ## Algorithms Explanation
 
 ### Update Board
 
-From GameScreen.js : <br>
-I am fetching the  `rowIndex` and `colIndex` of the cell that user clicks from the  component props and then dispatching `UPDATE_CELL` action with the payload( rowIndex and colIndex). 
+From `GameScreen.js` : <br>
+I am fetching the  `rowIndex` and `colIndex` of the cell when player clicks on the cell from the component props and then dispatching `UPDATE_CELL` action with the payload( rowIndex and colIndex). 
 
 From gameReducer.js : <br>
 Then, I am making a copy of our `currentBoard` and changing the value of that cell with the `currentPlayer ('X' or 'O')` and returning the `newBoard`.
@@ -180,7 +180,7 @@ return {
 ```
 ### Check Winner / Game Draw
 
-From gameReducer.js: <br>
+From _gameReducer.js_: <br>
 
 There are in total of 8 ways a player can win this game on 3x3 board. let's look at those patterns: 
 ```jsx
@@ -202,7 +202,7 @@ const winningPatterns = [
 ```
 <br>
 
-The function checks if the  `currentPlayer` value matches with all the three positons of a single combination of the winningPatterns. 
+The function checks if the  `currentPlayer` value matches with all the three positions of a single combination of the _winningPatterns_. 
 ```jsx
 const checkWinner = (board) => {
 
@@ -226,9 +226,9 @@ const isBoardFull = (board) => {
 ```
 <br>
 
-The function checks whether a player has won or if the game is draw ? By the end of the game, if all cell values are filled up and no player value have matched with one of the winning patters then the game will be considered as draw.
+The function checks whether a player has won or if the game is draw? By the end of the game, if all cell values are filled up and no player value have matched with one of the _winningPatters_ then the game will be considered as draw.
 
-Note: I am aware that the function returns three different kind of values (string, null, booleans). I think that this is considered as bad practice would definitely optimize this later. 
+**Note:** I am aware that the function returns three different kind of values `(string, null, booleans)`. I believe that this is considered as bad practice, therefore I would definitely optimize this later. 
 
 ```jsx
 const checkGameOver = (board) => {
@@ -244,9 +244,9 @@ const checkGameOver = (board) => {
 
 ### Toggle Player Turn
 
-From gameReducer: <br>
+From `gameReducer.js`: <br>
 
-I am doing 2 things here; Firstly, check if winner is already declared, if so then there is no point in altering player because game is over! Ortherwise, alter the player.
+I am doing 2 things here; Firstly, checking if winner is already declared, if so then there is no point in altering player because game is over! Ortherwise, I would alter the player.
 ```jsx
 case TOGGLE_PLAYER:
 if(state.winner !== null) 
@@ -262,9 +262,9 @@ return {
 
 ### Alert 
 
-From GameScreen.js: <br>
+From `GameScreen.js`: <br>
 
-I am rendering alert based on `winner` and `gameOver` entity from the state. If gameReducer have found out a winner then pop Victory alert, otherwise render Game-Tied alert. 
+I am rendering alert based on `winner` and `gameOver` entity from the state. If _gameReducer.js_ have found out a winner then pop Victory alert, otherwise render Game-Tied alert. 
 
 ```jsx
 displayGameStatusAlert = () => {
@@ -306,7 +306,7 @@ resetGame() {
 ### Future Ideas
 
 * I am thinking to implement a algorithm by which a Player can play the game with CPU bot. What this means from technical side is after players' input, I will
-dispatch an action which will randomly select one null postition from the board and assign a value( X / O) to it. I found an interesting [article](https://towardsdatascience.com/tic-tac-toe-creating-unbeatable-ai-with-minimax-algorithm-8af9e52c1e7d) which might possibly help me achieve this feature.
+dispatch an action which will randomly select one `null` postition from the board and assign a value( X / O) to it. I found an interesting [article](https://towardsdatascience.com/tic-tac-toe-creating-unbeatable-ai-with-minimax-algorithm-8af9e52c1e7d) which might possibly help me achieve this feature.
 
 * As of now my app is dispatching three actions asynchronously in  one function `handleClick()`, this works completely fine, but this is also considered as a bad practice in my case. At some point of time I want to avoid this and dispatch the actions synchronously using `middleware`.
 
@@ -319,7 +319,12 @@ handleClick(rowIndex, colIndex) {
 }
 ```
 
+### Design Credits
+
+* I was inspired by Shashank Kumar's _tic-tac-toe_ prototype design from their dribbble [page](https://dribbble.com/shots/6187597-Tic-Tac-Toe#shot-description).
+* Player avatar are coming from Prakhar Neel Sharma dribbble [page](https://dribbble.com/shots/8623352-User-avatar-part-2/attachments/881594?mode=media).
+
 ### Feedback
 
 In case if you have any questions or feedback about this application, feel free to reach out to me [**@mitulsavani**](https://github.com/mitulsavani)
-> created by Mitul Savani, updated on 01/05/2020
+> created by Mitul Savani, updated on 01/06/2020
