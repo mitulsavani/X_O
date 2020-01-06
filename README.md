@@ -5,7 +5,7 @@ Welcome to Tic Tac Toe mobile application game, built with React Native.
 ## Table of Contents
 
 - [ Overview ](#overview)
-- Demo
+- [ Demo ](#demo)
 - [ Getting Started ](#getting-started)
     - [ Installation ](#installation)
 - [ Game ](#game)
@@ -35,6 +35,14 @@ This is a Tic Tac Toe mobile application game where 2 players can play at the sa
 - The game screen will give indication on players turn
 - Game recognizes when a player has won and declare that player as victorious, or declares a tied game if nobody has won the game.
 - It allows the user to start a new game after every game
+
+## Demo
+###[Try it on Expo](https://exp.host/@mitulsavani/Tic-Tac-Toe)
+![X_O](https://github.com/mitulsavani/X_O/blob/master/assets/demo/X_O.gif)
+
+|                                                         |                                                         |                                          
+| :-----------------------------------------------------: | :-----------------------------------------------------: | 
+| <img width="250" src="./assets/demo/victory.png"> | <img width="250" src="./assets/demo/game_tied.png"> | 
 
 ## Getting Started 
 
