@@ -4,18 +4,18 @@ Welcome to Tic Tac Toe mobile application game, built with React Native.
 
 ## Table of Contents
 
-- Overview
+- [ Overview ](#overview)
 - Demo
-- Getting Started
+- [ Getting Started ](#getting-started)
     - [ Installation ](#installation)
-- Game
+- [ Game ](#game)
     - [ Project Structure ](#project-structure)
     - [ Custom components ](#custom-components)
-    - [ Screen & Navigation ](#screen-navigation)
-    - Redux
-        - Store
-        - Actions
-        - Reducers
+    - [ Screen & Navigation ](#screen--navigation)
+    - [ Redux ](#redux)
+        - [ State ](#state) 
+        - [ Actions ](#actions)
+        - [ Reducers ](#reducers)
 - Algorithms Explanation
     - Check Winner
     - Check Draw
@@ -103,5 +103,40 @@ All custom custom components have a set of props which I am validating using [Pr
 
 ### Screen & Navigation
 
-The game have one screen called as `GameScreen`. I was intitally thinking to make multiple screens for this game, but I did not see a point in doing because that would only increase the number of clicks from users to reach up to the main `GameScreen` and the navigation was aquired using [react navigation](https://reactnavigation.org/).
+The game have one screen called as `GameScreen`. I was intitally thinking to make multiple screens for this game, but I did not see a point in doing because that would only increase users clicks to reach up to the main `GameScreen` and the navigation was aquired using [react navigation](https://reactnavigation.org/).
 
+## Redux
+
+### State
+
+```jsx
+export const InitialState = () => ({
+  board: [
+    [null, null, null],
+    [null, null, null],
+    [null, null, null]
+  ],
+  winner: null,
+  currentPlayer: 'X',
+  gameOver: false,
+});
+```
+
+### Actions
+
+* `NEW_GAME` will be dispatched in 2 scenarios; when users open up an application which returns the Initial_State, and when users clicks on the resets game button
+of the alert. This alert is rendered when game declares the draw/winner of the game.
+* `UPDATE_CELL` will be dispatched when users clicks on one of the 9 cells of the board. This updated the value of that cell.
+* `TOGGLE_PLAYER` will be dispatched to alter players turn.
+* `CHECK_GAME_OVER` will be dispatched to check whether player have won the game.
+
+```jsx
+export const NEW_GAME = 'NEW_GAME';
+export const UPDATE_CELL = 'UPDATE_CELL';
+export const TOGGLE_PLAYER = 'TOGGLE_PLAYER';
+export const CHECK_GAME_OVER = 'CHECK_GAME_OVER';
+```
+
+### Reducers
+
+The application have one reducer called as `gameReducer` which is responsible to update and return the new state.
