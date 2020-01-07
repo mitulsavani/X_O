@@ -37,13 +37,13 @@ This is a Tic Tac Toe mobile application game where 2 players can play at the sa
 - It allows the user to start a new game after every game
 
 ## Demo
-### [Try it on Expo](https://exp.host/@mitulsavani/Tic-Tac-Toe)
 ![X_O](https://github.com/mitulsavani/X_O/blob/master/assets/demo/X_O.gif)
 
 |                     Victory                                    |                            Game Tied                          |                                          
 | :-----------------------------------------------------: | :-----------------------------------------------------: | 
 | <img width="250" src="./assets/demo/victory.png"> | <img width="250" src="./assets/demo/game_tied.png"> | 
 
+> I have [publised](https://exp.host/@mitulsavani/Tic-Tac-Toe) the application on Expo but unfortunately, Expo does not allow clients to try the app publicly anymore. Therefore, I have provided information below to run the app locally.
 ## Getting Started 
 
 ### Installation
