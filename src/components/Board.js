@@ -12,7 +12,6 @@ class Board extends Component {
         onClick={this.props.onClick}
         rowIndex={val}
         boardRow={this.props.board[val]}
-        gameOver={this.props.gameOver}
         key={val}
       />
     );
@@ -29,7 +28,6 @@ class Board extends Component {
 
 Board.propTypes = {
   board: PropTypes.array,
-  gameOver: PropTypes.bool,
   onClick: PropTypes.func,
 };
 

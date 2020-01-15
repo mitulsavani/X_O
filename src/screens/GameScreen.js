@@ -11,9 +11,6 @@ import Player  from '../components/Player';
 import GameScreenStyles from '../styles/GameScreenStyles';
 import { LinearGradient } from 'expo-linear-gradient';
 
-
-
-
 class GameScreen extends Component {
   constructor(props) {
     super(props);
@@ -77,9 +74,8 @@ class GameScreen extends Component {
     return(
       <View style={GameScreenStyles.boardContainer}>
         <View style={GameScreenStyles.boardStyle}>
-          <Board 
+          <Board
             board={board} 
-            gameOver={this.props.gameOver}
             onClick={this.handleClick}
           />
         </View>

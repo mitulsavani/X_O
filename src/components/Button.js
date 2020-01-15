@@ -66,7 +66,6 @@ Button.propTypes = {
   cellValue: PropTypes.string,
   rowIndex: PropTypes.number,
   colIndex: PropTypes.number,
-  gameOver: PropTypes.bool,
   onClick: PropTypes.func,
 };
 

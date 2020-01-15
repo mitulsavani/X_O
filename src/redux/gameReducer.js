@@ -31,9 +31,8 @@ const gameReducer = (state = defaultState, action) => {
   }
 
   const isBoardFull = (board) => {
-
     const notFull = board.some(row => row.some(col => col === null));
-  
+    
     return !notFull;
   }
 
@@ -47,29 +46,16 @@ const gameReducer = (state = defaultState, action) => {
     return false;
   }
 
-  const updateBoard = (currentBoard) => {
-    const { row, col } = action.payload;
-  
-    const newBoard = [
-      [currentBoard[0][0], currentBoard[0][1], currentBoard[0][2]],
-      [currentBoard[1][0], currentBoard[1][1], currentBoard[1][2]],
-      [currentBoard[2][0], currentBoard[2][1], currentBoard[2][2]]
-    ]
-
-    newBoard[row][col] = state.currentPlayer;
-
-    return newBoard;
-  }
-
   switch(action.type) {
     case NEW_GAME:
       return action.game;
     case UPDATE_CELL:
-      const updatedBoard = updateBoard(state.board);
+      const { row, col } = action.payload;
+      
+      state.board[row][col] = state.currentPlayer;
 
       return {
         ...state,
-        board: updatedBoard,
       }
     case TOGGLE_PLAYER:
       if(state.winner !== null) 

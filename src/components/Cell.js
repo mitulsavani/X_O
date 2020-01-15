@@ -13,7 +13,6 @@ class Cell extends Component {
         rowIndex={this.props.rowIndex}
         colIndex={val}
         cellValue={this.props.boardRow[val]}
-        gameOver={this.props.gameOver}
         key={val}
       />
     );
@@ -31,7 +30,6 @@ class Cell extends Component {
 Cell.propTypes = {
   boardRow: PropTypes.array,
   rowIndex: PropTypes.number,
-  gameOver: PropTypes.bool,
   onClick: PropTypes.func,
 };
 
