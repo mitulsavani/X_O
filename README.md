@@ -311,7 +311,7 @@ resetGame() {
 }
 ```
 
-### Future Ideas
+## Future Ideas
 
 * I am thinking to implement a algorithm by which a Player can play the game with CPU bot. What this means from technical side is after players' input, I will
 dispatch an action which will randomly select one `null` postition from the board and assign a value( X / O) to it. I found an interesting [article](https://towardsdatascience.com/tic-tac-toe-creating-unbeatable-ai-with-minimax-algorithm-8af9e52c1e7d) which might possibly help me achieve this feature.
@@ -327,7 +327,7 @@ handleClick(rowIndex, colIndex) {
 }
 ```
 
-### Design Credits
+## Design Credits
 
 * I was inspired by Shashank Kumar's _tic-tac-toe_ prototype design from their dribbble [page](https://dribbble.com/shots/6187597-Tic-Tac-Toe#shot-description).
 * Player avatar are coming from Prakhar Neel Sharma dribbble [page](https://dribbble.com/shots/8623352-User-avatar-part-2/attachments/881594?mode=media).
@@ -335,4 +335,4 @@ handleClick(rowIndex, colIndex) {
 ### Feedback
 
 In case if you have any questions or feedback about this application, feel free to reach out to me [**@mitulsavani**](https://github.com/mitulsavani)
-> created by Mitul Savani, updated on 01/06/2020
+> created by Mitul Savani, updated on 01/14/2020
