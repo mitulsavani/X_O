@@ -155,35 +155,19 @@ The application has one reducer named as `gameReducer.js` which is responsible t
 ### Update Board
 
 From `GameScreen.js` : <br>
-I am fetching the  `rowIndex` and `colIndex` of the cell when player clicks on the cell from the component props and then dispatching `UPDATE_CELL` action with the payload( rowIndex and colIndex). 
+I am fetching the  `rowIndex` and `colIndex` of the cell when player clicks on the cell from the component props and then dispatching `UPDATE_CELL` action with the payload`(rowIndex and colIndex)`. 
 
 From `gameReducer.js` : <br>
-Then, I am making a copy of our `currentBoard` and changing the value of that cell with the `currentPlayer ('X' or 'O')` and returning the `newBoard`.
+I am directly updating the value of that cell on the board with the `currentPlayer`.
 
-```jsx
-const updateBoard = (currentBoard) => {
-  const { row, col } = action.payload;
-
-  const newBoard = [
-    [currentBoard[0][0], currentBoard[0][1], currentBoard[0][2]],
-    [currentBoard[1][0], currentBoard[1][1], currentBoard[1][2]],
-    [currentBoard[2][0], currentBoard[2][1], currentBoard[2][2]]
-  ]
-
-  newBoard[row][col] = state.currentPlayer;
-
-  return newBoard;
-}
-```
-
-Then we will update our state with the newBoard:
 ```jsx
 case UPDATE_CELL:
-const updatedBoard = updateBoard(state.board);
+const { row, col } = action.payload;
+
+state.board[row][col] = state.currentPlayer;
 
 return {
-  ...state,
-  board: updatedBoard,
+...state,
 }
 ```
 ### Check Winner / Game Draw
