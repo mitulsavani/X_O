@@ -4,25 +4,29 @@ Welcome to Tic Tac Toe mobile application game, built with React Native.
 
 ## Table of Contents
 
-- [ Overview ](#overview)
-- [ Demo ](#demo)
-- [ Getting Started ](#getting-started)
-    - [ Installation ](#installation)
-- [ Game ](#game)
-    - [ Project Structure ](#project-structure)
-    - [ Custom components ](#custom-components)
-    - [ Screen & Navigation ](#screen--navigation)
-    - [ Redux ](#redux)
-        - [ State ](#state) 
-        - [ Actions ](#actions)
-        - [ Reducer ](#reducer)
-- [ Algorithms Explanation ](#algorithms-explanation)
-    - [ Update Board ](#update-board)
-    - [ Check Winner / Game Draw ](#check-winner--game-draw)
-    - [ Toggle/Alternate Player Turn ](#toggle-player-turn)
-    - [ Alert ](#alert)
-- [ Future Ideas ](#future-ideas)
-- [ Feedback ](#feedback)
+- [Tic Tac Toe - X_O](#tic-tac-toe---xo)
+  - [Table of Contents](#table-of-contents)
+  - [Overview](#overview)
+    - [Functionality](#functionality)
+  - [Demo](#demo)
+  - [Getting Started](#getting-started)
+    - [Installation](#installation)
+  - [Game](#game)
+    - [Project Structure](#project-structure)
+    - [Custom components](#custom-components)
+    - [Screen & Navigation](#screen--navigation)
+  - [Redux](#redux)
+    - [State](#state)
+    - [Actions](#actions)
+    - [Reducer](#reducer)
+  - [Algorithms Explanation](#algorithms-explanation)
+    - [Update Board](#update-board)
+    - [Check Winner / Game Draw](#check-winner--game-draw)
+    - [Toggle Player Turn](#toggle-player-turn)
+    - [Alert](#alert)
+  - [Future Ideas](#future-ideas)
+  - [Design Credits](#design-credits)
+    - [Feedback](#feedback)
 
 ## Overview
 
@@ -37,7 +41,7 @@ This is a Tic Tac Toe mobile application game where 2 players can play at the sa
 - It allows the user to start a new game after every game
 
 ## Demo
-![X_O](https://github.com/mitulsavani/X_O/blob/master/assets/demo/X_O.gif)
+![X_O](./assets/demo/X_O.gif)
 
 |                     Victory                                    |                            Game Tied                          |                                          
 | :-----------------------------------------------------: | :-----------------------------------------------------: | 
